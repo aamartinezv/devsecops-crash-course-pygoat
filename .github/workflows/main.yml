@@ -23,7 +23,7 @@ jobs:
      run: bandit -ll -ii -r . -f json -o bandit-report.json
 
    - name: Upload Artifact
-     uses: actions/upload-artifact@v4
+     uses: actions/upload-artifact@v3
      if: always()
      with:
       name: bandit-findings
@@ -35,16 +35,15 @@ jobs:
 
    steps:
    - name: Checkout code
-     uses: actions/checkout@v2 
+     uses: actions/checkout@v2
 
-    - name: Set up Docker
+   - name: Set up Docker
      uses: docker-practice/actions-setup-docker@v1
      with:
       docker_version: '20.10.7'
 
    - name: Build Docker Image
      run: docker build -f Dockerfile -t myapp:latest .
-
 
     - name: Docker Scout Scan
       run: |
@@ -54,4 +53,4 @@ jobs:
         docker scout quickview
         docker scout cves
 
-       
+   
